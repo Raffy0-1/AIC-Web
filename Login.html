@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIC Portal Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      background: url('YOUR_AIC_LOGO_HERE') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.85);
+      z-index: -1;
+    }
+
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 420px;
+      overflow: hidden;
+      transform: translateY(-20px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .login-card:hover {
+      transform: translateY(-25px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .login-header {
+      background-color: #1A1A2E;
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .login-header h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .login-header p {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .login-body {
+      padding: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #1A1A2E;
+      font-size: 14px;
+    }
+
+    .input-field {
+      position: relative;
+    }
+
+    .input-field input {
+      width: 100%;
+      padding: 12px 15px 12px 40px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .input-field input:focus {
+      outline: none;
+      border-color: #D6F26B;
+      box-shadow: 0 0 0 3px rgba(214, 242, 107, 0.2);
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+    }
+
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+    }
+
+    .remember-me input {
+      margin-right: 8px;
+    }
+
+    .forgot-password a {
+      color: #1A1A2E;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #1A1A2E;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #2A2A3E;
+      transform: translateY(-2px);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .login-btn:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .error-message {
+      color: #ef4444;
+      font-size: 13px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .input-field.error input {
+      border-color: #ef4444;
+    }
+
+    .spinner {
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .success-message {
+      color: #10b981;
+      font-size: 13px;
+      margin-top: 10px;
+      text-align: center;
+      display: none;
+    }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .login-footer a {
+      color: #1A1A2E;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .login-header {
+        padding: 25px 20px;
+      }
+      
+      .login-body {
+        padding: 25px 20px;
+      }
+      
+      .remember-forgot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h1>AIC Portal</h1>
+        <p>Access your research dashboard and submissions</p>
+      </div>
+      
+      <div class="login-body">
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <div class="input-field">
+              <i class="fas fa-envelope input-icon"></i>
+              <input type="email" id="email" placeholder="Enter your email" required autocomplete="username">
+            </div>
+            <div class="error-message" id="emailError">Please enter a valid email address</div>
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-field">
+              <i class="fas fa-lock input-icon"></i>
+              <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password" minlength="8">
+            </div>
+            <div class="error-message" id="passwordError">Password must be at least 8 characters</div>
+          </div>
+          
+          <div class="remember-forgot">
+            <div class="remember-me">
+              <input type="checkbox" id="rememberMe">
+              <label for="rememberMe">Remember me</label>
+            </div>
+            <div class="forgot-password">
+              <a href="#" id="forgotPasswordLink">Forgot password?</a>
+            </div>
+          </div>
+          
+          <button type="submit" class="login-btn" id="loginButton">Login</button>
+          <div class="success-message" id="successMessage"></div>
+          
+          <div class="login-footer">
+            Don't have an account? <a href="Register.html">Register</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK (compat version for simpler syntax) -->
+  <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-auth-compat.js"></script>
+  <script>
+    // Firebase configuration (same as your signup page)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAb8kaHr7L1EBs7YzPTiy4dIvn-b38jn4w",
+      authDomain: "aic-portal-login-page.firebaseapp.com",
+      projectId: "aic-portal-login-page",
+      storageBucket: "aic-portal-login-page.firebasestorage.app",
+      messagingSenderId: "980875275663",
+      appId: "1:980875275663:web:a02240fe3adec61f00affa",
+      measurementId: "G-FPLNMYH5Z8"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.getElementById('loginForm');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const emailError = document.getElementById('emailError');
+      const passwordError = document.getElementById('passwordError');
+      const loginButton = document.getElementById('loginButton');
+      const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+      const rememberMe = document.getElementById('rememberMe');
+      const successMessage = document.getElementById('successMessage');
+
+      // Auto-redirect if already logged in
+      auth.onAuthStateChanged((user) => {
+        if (user && localStorage.getItem('rememberMe') === 'true') {
+          window.location.href = 'dashboard.html';
+        }
+      });
+
+      // Load remembered email
+      if (localStorage.getItem('rememberMe') === 'true') {
+        emailInput.value = localStorage.getItem('email') || '';
+        rememberMe.checked = true;
+      }
+
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        emailError.style.display = 'none';
+        passwordError.style.display = 'none';
+        successMessage.style.display = 'none';
+        emailInput.parentElement.classList.remove('error');
+        passwordInput.parentElement.classList.remove('error');
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        let isValid = true;
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          emailError.textContent = 'Please enter a valid email address';
+          emailError.style.display = 'block';
+          emailInput.parentElement.classList.add('error');
+          isValid = false;
+        }
+
+        if (password.length < 8) {
+          passwordError.textContent = 'Password must be at least 8 characters';
+          passwordError.style.display = 'block';
+          passwordInput.parentElement.classList.add('error');
+          isValid = false;
+        }
+
+        if (isValid) {
+          loginButton.disabled = true;
+          loginButton.innerHTML = '<span class="spinner"><i class="fas fa-spinner fa-spin"></i></span> Logging in...';
+          
+          // Set persistence (remember me)
+          const persistence = rememberMe.checked ? 
+            firebase.auth.Auth.Persistence.LOCAL : 
+            firebase.auth.Auth.Persistence.SESSION;
+
+          auth.setPersistence(persistence)
+            .then(() => {
+              return auth.signInWithEmailAndPassword(email, password);
+            })
+            .then(() => {
+              // Save to localStorage if "Remember Me" is checked
+              if (rememberMe.checked) {
+                localStorage.setItem('rememberMe', 'true');
+                localStorage.setItem('email', email);
+              } else {
+                localStorage.removeItem('rememberMe');
+                localStorage.removeItem('email');
+              }
+              
+              successMessage.textContent = 'Login successful! Redirecting...';
+              successMessage.style.display = 'block';
+              setTimeout(() => {
+                window.location.href = 'dashboard.html';
+              }, 1500);
+            })
+            .catch((error) => {
+              loginButton.disabled = false;
+              loginButton.innerHTML = 'Login';
+              if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                passwordError.textContent = 'Invalid email or password';
+                passwordError.style.display = 'block';
+                passwordInput.parentElement.classList.add('error');
+              } else {
+                passwordError.textContent = error.message;
+                passwordError.style.display = 'block';
+              }
+            });
+        }
+      });
+
+      // Forgot Password
+      forgotPasswordLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const email = emailInput.value.trim();
+        if (!email) {
+          emailError.textContent = 'Enter your email to reset password';
+          emailError.style.display = 'block';
+          emailInput.parentElement.classList.add('error');
+          return;
+        }
+        
+        auth.sendPasswordResetEmail(email)
+          .then(() => {
+            successMessage.textContent = 'Password reset email sent! Check your inbox.';
+            successMessage.style.display = 'block';
+          })
+          .catch((error) => {
+            emailError.textContent = 'Error: ' + error.message;
+            emailError.style.display = 'block';
+          });
+      });
+    });
+  </script>
+</body>
+</html>

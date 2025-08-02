@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIC - Advanced Intelligence Collective</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Hide scrollbar */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        body {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: #333; /* Dark text for better contrast on white */
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: #ffffff; /* White background */
+        }
+        
+        a {
+            text-decoration: none;
+            color: #101933; /* Dark navy blue for links */
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #ffffff; /* White header */
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(106, 120, 147, 0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 24px;
+            color: #101933; /* Dark navy blue */
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #6a7893; /* Light blue-gray */
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin-left: auto; /* Pushed to the right */
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .nav-links li a {
+            color: #101933; /* Dark navy blue */
+        }
+
+        .nav-links li a:hover {
+            color: #6a7893; /* Light blue-gray */
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #6a7893; /* Light blue-gray */
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+        
+        .social-icons {
+            display: flex;
+            list-style: none;
+            margin-left: 30px; /* Added space between nav and social icons */
+        }
+        
+        .social-icons li {
+            margin-left: 15px;
+        }
+
+        .social-icons a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(106, 120, 147, 0.1); /* Light blue-gray with opacity */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: #101933; /* Dark navy blue */
+        }
+
+        .social-icons a:hover {
+            background-color: #6a7893; /* Light blue-gray */
+            color: #ffffff; /* White on hover */
+            transform: translateY(-3px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff; /* White background */
+        }
+        
+        .hero-content {
+            flex: 1;
+            padding-right: 50px;
+        }
+        
+        .hero-content h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #101933; /* Dark navy blue */
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-content p {
+            margin-bottom: 30px;
+            color: #666; /* Dark gray for text */
+            font-size: 18px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            text-align: right;
+            position: relative;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(106, 120, 147, 0.1); /* Light blue-gray with opacity */
+            border-radius: 10px;
+            z-index: 0;
+            transform: rotate(-5deg);
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.03);
+        }
+        
+        .stats {
+            display: flex;
+            margin-top: 40px;
+        }
+        
+        .stat-item {
+            margin-right: 40px;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 40px;
+            background-color: #6a7893; /* Light blue-gray */
+        }
+        
+        .stat-item h3 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #6a7893; /* Light blue-gray */
+            margin-bottom: 5px;
+        }
+        
+        .stat-item p {
+            font-size: 14px;
+            color: #666; /* Dark gray */
+        }
+
+        /* Features Section - Merged Cards */
+        .features {
+            padding: 60px 0;
+            background-color: #f8f9fa; /* Light gray background */
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            max-width: 1100px; /* Slightly narrower */
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background-color: #6a7893; /* Light blue-gray */
+            padding: 25px;
+            color: #ffffff; /* White text */
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px; /* Rounded corners */
+            margin: 0 5px; /* Small margin */
+        }
+
+        .feature-card:first-child {
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+
+        .feature-card:last-child {
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            border-right: none;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background-color: #101933; /* Dark navy blue */
+            color: #ffffff;
+            z-index: 2;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card i {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: inherit;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .feature-card p {
+            position: relative;
+            z-index: 2;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            display: flex;
+            gap: 30px;
+            background-color: #ffffff; /* White background */
+        }
+        
+        .about-content {
+            flex: 1;
+            background-color: #6a7893; /* Light blue-gray */
+            color: #ffffff; /* White text */
+            padding: 40px;
+            border-radius: 10px;
+        }
+        
+        .about-content h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #ffffff;
+        }
+        
+        .about-content p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .about-content ul {
+            margin-bottom: 30px;
+            list-style: none;
+        }
+
+        .about-content ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .about-content ul li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #ffffff;
+        }
+        
+        .about-image {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.5s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img:hover {
+            transform: scale(1.03);
+        }
+        
+        .why-choose {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        .why-choose h3 {
+            margin-bottom: 20px;
+            color: #101933; /* Dark navy blue */
+            font-size: 24px;
+        }
+        
+        .choose-item {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa; /* Light gray */
+        }
+
+        .choose-item:hover {
+            background-color: rgba(106, 120, 147, 0.1); /* Light blue-gray with opacity */
+            transform: translateX(5px);
+        }
+        
+        .choose-icon {
+            background-color: rgba(106, 120, 147, 0.2); /* Light blue-gray with opacity */
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            color: #6a7893; /* Light blue-gray */
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .choose-item:hover .choose-icon {
+            background-color: #6a7893; /* Light blue-gray */
+            color: #ffffff; /* White */
+        }
+        
+        .choose-content h4 {
+            margin-bottom: 5px;
+            color: #101933; /* Dark navy blue */
+        }
+
+        .choose-content p {
+            color: #666; /* Dark gray */
+            font-size: 14px;
+        }
+        
+        .button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #6a7893; /* Light blue-gray */
+            color: #ffffff; /* White */
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .button:hover {
+            background-color: #101933; /* Dark navy blue */
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(16, 25, 51, 0.2);
+        }
+
+        .button:hover i {
+            transform: translateX(3px);
+        }
+
+        .button-outline {
+            background-color: transparent;
+            border: 2px solid #6a7893; /* Light blue-gray */
+            color: #6a7893; /* Light blue-gray */
+            box-shadow: none;
+        }
+
+        .button-outline:hover {
+            background-color: #6a7893; /* Light blue-gray */
+            color: #ffffff; /* White */
+        }
+
+        /* Partners Section */
+        .partners {
+            padding: 60px 0;
+            background-color: #f8f9fa; /* Light gray background */
+            text-align: center;
+        }
+        
+        .partners h3 {
+            margin-bottom: 40px;
+            color: #101933; /* Dark navy blue */
+            font-size: 24px;
+        }
+        
+        .partner-logos {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0.7;
+            flex-wrap: wrap;
+        }
+
+        .partner-logos img {
+            height: 40px;
+            margin: 15px 30px;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .partner-logos img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            text-align: center;
+            background-color: #ffffff; /* White background */
+        }
+        
+        .services h2 {
+            font-size: 32px;
+            margin-bottom: 50px;
+            color: #101933; /* Dark navy blue */
+            position: relative;
+            display: inline-block;
+        }
+
+        .services h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #6a7893; /* Light blue-gray */
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .services-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .service-card {
+            flex: 1;
+            text-align: center;
+            padding: 40px 30px;
+            border-radius: 10px;
+            background-color: #f8f9fa; /* Light gray background */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            border-color: #6a7893; /* Light blue-gray */
+        }
+        
+        .service-icon {
+            width: 100px;
+            height: 100px;
+            background-color: #6a7893; /* Light blue-gray */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #ffffff; /* White */
+            font-size: 36px;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotateY(180deg);
+            background-color: #101933; /* Dark navy blue */
+            color: #ffffff; /* White */
+        }
+        
+        .service-card h3 {
+            margin-bottom: 15px;
+            color: #101933; /* Dark navy blue */
+            font-size: 20px;
+        }
+        
+        .service-card p {
+            margin-bottom: 20px;
+            color: #666; /* Dark gray */
+            opacity: 0.9;
+        }
+
+        .service-card ul {
+            list-style: none;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .service-card ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+            color: #666; /* Dark gray */
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .service-card ul li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #6a7893; /* Light blue-gray */
+        }
+
+        /* Monitor Section */
+        .monitor {
+            padding: 80px 0;
+            background-color: #6a7893; /* Light blue-gray */
+            color: #ffffff; /* White */
+            display: flex;
+            align-items: center;
+        }
+        
+        .monitor-content {
+            flex: 1;
+            padding-right: 50px;
+        }
+        
+        .monitor-content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .monitor-content p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .monitor-image {
+            flex: 1;
+            position: relative;
+        }
+        
+        .monitor-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .newsletter {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.9); /* White with opacity */
+            padding: 40px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            color: #101933; /* Dark navy blue */
+        }
+        
+        .newsletter h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            color: #101933; /* Dark navy blue */
+            border: 1px solid #ddd;
+        }
+
+        .form-control:focus {
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            outline: none;
+            border-color: #6a7893; /* Light blue-gray */
+        }
+
+        /* Process Section */
+        .process {
+            padding: 80px 0;
+            text-align: center;
+            background-color: #f8f9fa; /* Light gray background */
+        }
+        
+        .process h2 {
+            font-size: 32px;
+            margin-bottom: 50px;
+            color: #101933; /* Dark navy blue */
+            position: relative;
+            display: inline-block;
+        }
+
+        .process h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #6a7893; /* Light blue-gray */
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .process-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            padding: 0 20px;
+        }
+        
+        .process-step:not(:last-child)::after {
+            content: '\f30b';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: -10px;
+            top: 40px;
+            color: #6a7893; /* Light blue-gray */
+            font-size: 24px;
+        }
+        
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #6a7893; /* Light blue-gray */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #ffffff; /* White */
+            font-size: 30px;
+            box-shadow: 0 10px 20px rgba(106, 120, 147, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover .step-icon {
+            transform: scale(1.1);
+            background-color: #101933; /* Dark navy blue */
+            color: #ffffff; /* White */
+        }
+        
+        .process-step h3 {
+            margin-bottom: 10px;
+            color: #101933; /* Dark navy blue */
+        }
+        
+        .process-step p {
+            font-size: 14px;
+            color: #666; /* Dark gray */
+        }
+
+        /* Testimonial Section */
+        .testimonial {
+            padding: 80px 0;
+            background-color: #ffffff; /* White background */
+            text-align: center;
+        }
+        
+        .testimonial h2 {
+            font-size: 32px;
+            margin-bottom: 50px;
+            color: #101933; /* Dark navy blue */
+            position: relative;
+            display: inline-block;
+        }
+
+        .testimonial h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #6a7893; /* Light blue-gray */
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .testimonial-card {
+            background-color: #f8f9fa; /* Light gray background */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            border: 1px solid #eee;
+        }
+
+        .testimonial-card::before {
+            content: '\f10d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            color: #6a7893; /* Light blue-gray */
+            opacity: 0.2;
+            font-size: 60px;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 30px;
+            font-style: italic;
+            color: #666; /* Dark gray */
+            font-size: 18px;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background-color: #6a7893; /* Light blue-gray */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff; /* White */
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+            color: #101933; /* Dark navy blue */
+        }
+        
+        .author-info p {
+            font-size: 14px;
+            color: #666; /* Dark gray */
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #6a7893 0%, #101933 100%); /* Gradient from light blue-gray to dark navy */
+            color: #ffffff; /* White */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+        }
+
+        .cta::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            bottom: -50px;
+            left: -50px;
+        }
+        
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta p {
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta .button {
+            background-color: #ffffff; /* White */
+            color: #101933; /* Dark navy blue */
+        }
+
+        .cta .button:hover {
+            background-color: #101933; /* Dark navy blue */
+            color: #ffffff; /* White */
+            border: 2px solid #ffffff;
+        }
+
+        .cta .button-outline {
+            background-color: transparent;
+            border-color: #ffffff; /* White */
+            color: #ffffff; /* White */
+        }
+
+        .cta .button-outline:hover {
+            background-color: #ffffff; /* White */
+            color: #101933; /* Dark navy blue */
+        }
+
+        /* Blog Section */
+        .blog {
+            padding: 80px 0;
+            background-color: #ffffff; /* White background */
+        }
+        
+        .blog h2 {
+            font-size: 32px;
+            margin-bottom: 50px;
+            color: #101933; /* Dark navy blue */
+            text-align: center;
+            position: relative;
+        }
+
+        .blog h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #6a7893; /* Light blue-gray */
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .blog-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            background-color: #ffffff; /* White background */
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: #6a7893; /* Light blue-gray */
+        }
+        
+        .blog-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+        
+        .blog-content {
+            padding: 25px;
+        }
+        
+        .blog-content h3 {
+            margin-bottom: 10px;
+            color: #101933; /* Dark navy blue */
+            font-size: 18px;
+        }
+        
+        .blog-content p {
+            font-size: 14px;
+            color: #666; /* Dark gray */
+            margin-bottom: 20px;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #6a7893; /* Light blue-gray */
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .blog-meta i {
+            margin-right: 5px;
+            font-size: 14px;
+        }
+
+        .read-more {
+            color: #6a7893; /* Light blue-gray */
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .read-more i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover .read-more i {
+            transform: translateX(3px);
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 60px 0;
+            background-color: #6a7893; /* Light blue-gray */
+            color: #ffffff; /* White */
+            text-align: center;
+        }
+
+        .newsletter-section h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .newsletter-section p {
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form .form-control {
+            flex: 1;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            padding: 15px 20px;
+            border: none;
+        }
+        
+        .newsletter-form .button {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            background-color: #101933; /* Dark navy blue */
+            color: #ffffff; /* White */
+        }
+
+        .newsletter-form .button:hover {
+            background-color: rgba(16, 25, 51, 0.9); /* Dark navy blue with opacity */
+        }
+
+        /* Footer */
+        footer {
+            background-color: #101933; /* Dark navy blue */
+            color: #ffffff; /* White */
+            padding: 80px 0 30px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, #6a7893 0%, #101933 100%);
+        }
+        
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-col {
+            flex: 1;
+            margin-right: 20px;
+            min-width: 200px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+            color: #ffffff; /* White */
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: #6a7893; /* Light blue-gray */
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #b8c2d8; /* Light gray-blue */
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .footer-col ul li a:hover {
+            color: #ffffff; /* White */
+            transform: translateX(5px);
+        }
+
+        .footer-col p {
+            color: #b8c2d8; /* Light gray-blue */
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .footer-social {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(106, 120, 147, 0.2); /* Light blue-gray with opacity */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: #ffffff; /* White */
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background-color: #6a7893; /* Light blue-gray */
+            transform: translateY(-3px);
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            color: #b8c2d8; /* Light gray-blue */
+        }
+
+        .contact-info i {
+            margin-right: 10px;
+            color: #6a7893; /* Light blue-gray */
+            margin-top: 3px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(106, 120, 147, 0.2);
+            font-size: 14px;
+            color: #b8c2d8; /* Light gray-blue */
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .nav-links {
+                margin-left: 50px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                padding: 150px 0 60px;
+            }
+
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 40px;
+                text-align: center;
+            }
+
+            .stats {
+                justify-content: center;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 100%;
+            }
+
+            .feature-card:nth-child(2) {
+                border-right: none;
+                border-top-right-radius: 8px;
+            }
+
+            .feature-card:nth-child(odd) {
+                border-bottom-left-radius: 0;
+            }
+
+            .feature-card:nth-child(3) {
+                border-bottom-left-radius: 8px;
+            }
+
+            .feature-card:nth-child(even) {
+                border-top-right-radius: 0;
+            }
+
+            .feature-card:last-child {
+                border-bottom-right-radius: 8px;
+            }
+
+            .about {
+                flex-direction: column;
+            }
+
+            .services-grid {
+                flex-direction: column;
+            }
+
+            .service-card {
+                margin-bottom: 30px;
+            }
+
+            .monitor {
+                flex-direction: column;
+            }
+
+            .monitor-content {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+
+            .process-steps {
+                flex-direction: column;
+            }
+
+            .process-step {
+                margin-bottom: 40px;
+            }
+
+            .process-step:not(:last-child)::after {
+                content: '\f107';
+                right: auto;
+                top: auto;
+                bottom: -30px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                margin-left: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 8px !important;
+                margin: 5px 0;
+            }
+
+            .feature-card:last-child {
+                border-bottom: none;
+            }
+
+            .about-image {
+                grid-template-columns: 1fr;
+                margin-bottom: 30px;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form .form-control {
+                border-radius: 5px;
+                margin-bottom: 10px;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+
+            .newsletter-form .button {
+                border-radius: 5px;
+                width: 100%;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with updated navigation and added WhatsApp -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <div class="logo"><i class="fas fa-brain"></i> AIC</div>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="Register.html">Register</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Page</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+                <ul class="social-icons">
+                    <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a href="#"><i class="fab fa-github"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero fade-in">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Advancing Intelligence Through Cutting-Edge Research</h1>
+                <p>At AIC, we pioneer transformative AI technologies that push the boundaries of machine learning, computer vision, and natural language processing to solve complex real-world challenges.</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <h3>15+</h3>
+                        <p>Years in AI Research</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>50+</h3>
+                        <p>PhD Researchers</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>200+</h3>
+                        <p>Published Papers</p>
+                    </div>
+                </div>
+                <a href="#" class="button">Explore Our Work <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="hero-image">
+                <img src="AIC1.png" alt="AI Research at AIC">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section with updated cards -->
+    <section class="features fade-in">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-microchip"></i>
+                    <h3>Advanced Machine Learning</h3>
+                    <p>Developing next-generation algorithms that learn more efficiently from complex data</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-eye"></i>
+                    <h3>Computer Vision</h3>
+                    <p>Pioneering visual recognition systems that understand the world like humans do</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-language"></i>
+                    <h3>Natural Language Processing</h3>
+                    <p>Creating AI that comprehends, interprets, and generates human language</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>Autonomous Systems</h3>
+                    <p>Building intelligent agents that perceive and act in dynamic environments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about fade-in">
+        <div class="container">
+            <div class="about-content">
+                <h2>About AIC</h2>
+                <p>The Advanced Intelligence Collective (AIC) is a premier research organization dedicated to advancing artificial intelligence through interdisciplinary collaboration and cutting-edge innovation.</p>
+                <ul>
+                    <li>Founded in 2010 by leading AI researchers from top institutions</li>
+                    <li>Multidisciplinary team of computer scientists, neuroscientists, and engineers</li>
+                    <li>Focus on both fundamental research and practical applications</li>
+                    <li>Strong partnerships with academia and industry leaders</li>
+                </ul>
+                <a href="#" class="button">Learn About Our Mission <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="about-image">
+                <img src="AIC1.png" alt="AIC Research Lab">
+                <img src="AIC1.png" alt="AIC Team Collaboration">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services fade-in">
+        <div class="container">
+            <h2>Our Research Areas</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Deep Learning</h3>
+                    <ul>
+                        <li>Novel neural architectures and training methods</li>
+                        <li>Explainable and interpretable AI systems</li>
+                        <li>Efficient learning from limited data</li>
+                    </ul>
+                    <a href="#" class="button">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-network"></i>
+                    </div>
+                    <h3>Reinforcement Learning</h3>
+                    <ul>
+                        <li>Autonomous decision-making systems</li>
+                        <li>Multi-agent collaboration and competition</li>
+                        <li>Safe exploration and risk-aware learning</li>
+                    </ul>
+                    <a href="#" class="button">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <h3>AI for Science</h3>
+                    <ul>
+                        <li>Accelerating scientific discovery with AI</li>
+                        <li>Drug discovery and molecular design</li>
+                        <li>Climate modeling and sustainability</li>
+                    </ul>
+                    <a href="#" class="button">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Monitor Section -->
+    <section class="monitor fade-in">
+        <div class="container">
+            <div class="monitor-content">
+                <h2>Our Latest Breakthrough: Neuro-Symbolic Reasoning</h2>
+                <p>We've developed a novel framework that combines neural networks with symbolic reasoning, achieving state-of-the-art performance on complex reasoning tasks while maintaining interpretability.</p>
+                <a href="#" class="button">Read the Paper <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="newsletter">
+                <h3>Join Our Research Network</h3>
+                <p>Stay updated with our latest publications and research opportunities</p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option>Research Interest</option>
+                            <option>Machine Learning</option>
+                            <option>Computer Vision</option>
+                            <option>NLP</option>
+                            <option>Robotics</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="button">Subscribe <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process fade-in">
+        <div class="container">
+            <h2>Our Research Methodology</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>Problem Identification</h3>
+                    <p>Identifying fundamental challenges with real-world impact</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon"><i class="fas fa-flask"></i></div>
+                    <h3>Theoretical Development</h3>
+                    <p>Formulating novel approaches and mathematical frameworks</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Implementation & Testing</h3>
+                    <p>Rigorous experimentation and validation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="testimonial fade-in">
+        <div class="container">
+            <h2>Recognized by Leaders in AI</h2>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>"AIC's work on neural-symbolic integration represents one of the most promising directions in AI research today. Their interdisciplinary approach and rigorous methodology consistently produce groundbreaking results that advance the entire field."</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-image">YD</div>
+                    <div class="author-info">
+                        <h4>Dr. Yann Dubois</h4>
+                        <p>Professor of Computer Science, Stanford University</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta fade-in">
+        <div class="container">
+            <h2>Shape the Future of Artificial Intelligence</h2>
+            <p>Whether you're a researcher, student, or industry partner, join us in pushing the boundaries of what AI can achieve.</p>
+            <div class="cta-buttons">
+                <a href="#" class="button">Join Our Team</a>
+                <a href="#" class="button button-outline">Partner With Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog fade-in">
+        <div class="container">
+            <h2>Latest Research & Insights</h2>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="AIC1.png" alt="AI Research">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> June 15, 2025</span>
+                            <span><i class="far fa-eye"></i> 1.2K Views</span>
+                        </div>
+                        <h3>Breaking the Limits of Few-Shot Learning</h3>
+                        <p>Our new meta-learning framework achieves human-level few-shot performance across multiple domains.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="AIC1.png" alt="AI Ethics">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> May 28, 2025</span>
+                            <span><i class="far fa-eye"></i> 2.4K Views</span>
+                        </div>
+                        <h3>Ethical Frameworks for Autonomous Systems</h3>
+                        <p>Developing formal methods to ensure AI systems align with human values and societal norms.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="AIC1.png" alt="AI Applications">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> April 10, 2025</span>
+                            <span><i class="far fa-eye"></i> 3.1K Views</span>
+                        </div>
+                        <h3>AI-Driven Drug Discovery Breakthrough</h3>
+                        <p>Our team identified promising new compounds for treating neurodegenerative diseases.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section fade-in">
+        <div class="container">
+            <h3>Subscribe to Our Research Digest</h3>
+            <p>Receive monthly updates on our latest publications, breakthroughs, and upcoming events.</p>
+            <form class="newsletter-form">
+                <input type="email" class="form-control" placeholder="Your Email Address">
+                <button type="submit" class="button">Subscribe <i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="fade-in">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>AIC</h3>
+                    <p>Advancing the frontiers of artificial intelligence through innovative research and collaboration.</p>
+                    <ul class="footer-social">
+                        <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                        <li><a href="#"><i class="fab fa-github"></i></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Research</h3>
+                    <ul>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Research Areas</a></li>
+                        <li><a href="#">Datasets</a></li>
+                        <li><a href="#">Open Source</a></li>
+                        <li><a href="#">Collaborations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Organization</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">Events</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 450 Serra Mall, Stanford, CA 94305</li>
+                        <li><i class="fas fa-envelope"></i> contact@aic-research.org</li>
+                        <li><i class="fas fa-phone"></i> +1 (650) 123-4567</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Advanced Intelligence Collective. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            fadeElements.forEach(element => {
+                fadeObserver.observe(element);
+            });
+
+            // Header scroll effect
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
